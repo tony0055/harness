@@ -22,13 +22,45 @@
 
 > 참고: `.cursor/mcp.json`은 키 없이 바로 작동한다. rate limit이 걸리면 API 키를 추가한다. 키는 절대 파일에 날것으로 박지 말고 `${env:EXA_API_KEY}`, `${env:CONTEXT7_API_KEY}` 형태로 넣고 셸 환경변수로 관리한다.
 
-## 모델 선택
+## 모델 선택 (비용 인지형 — Cursor Pro $20 예산)
 
-작업 성격에 따라 모델을 고른다. (자세한 표는 `.cursor/rules/model-routing.mdc`)
+전제: **Cursor Pro = 월 $20 포함.** GPT/Claude(프런티어)는 이 예산을 빠르게 태운다. (자세한 규칙: `.cursor/rules/model-routing.mdc`)
 
-- 새 프로젝트/MVP 스캐폴딩 → **Grok**
-- 작은 수정·반복 패턴 → **Composer**
-- 대규모 리팩토링·고위험 로직·정밀 디버깅 → **Claude/GPT로 계획·검수**, 구현은 Composer
+- **fast**(사소·반복) → Composer / Auto (포함)
+- **standard**(대부분 구현·MVP) → **Grok** (저비용)
+- **frontier**(고위험 로직·정밀 디버깅·핵심 검수) → Claude/GPT **아껴서, 계획·검수 짧은 구간만**
+- **예산 가드**: 프런티어는 "승격"으로만. **예산/토큰 달리면 전부 Cursor 네이티브(Composer/Auto/Grok)로 강등.** 의심되면 싸게 시작.
+
+## 역할 4종 (Plan / Explore / Build / Review)
+
+OmO의 특화 에이전트를 MVP용 4역할로 압축했다. 각 역할이 쓰는 paperthin 스킬·모델 티어는 `.cursor/rules/roles.mdc` 참조. Cursor Custom Modes로 승격 권장.
+
+- **Plan**: `/readchk` `/hate` `/feynman` `/modelchk` (계획·검수)
+- **Explore**: 리서치 MCP + explore 서브에이전트 + `/factchk` `/catchup` (탐색)
+- **Build**: `/aim` `/autobahn` `/sip` (구현)
+- **Review**: `/shower` `/re0` `/debloat` `/ssotize` `/sip` (검수·정리)
+
+## paperthin (외부 검증된 스킬 — 직접 설치)
+
+anti-slop 저수준 설계 패턴 스킬 모음. 바퀴를 재발명하지 말고 그대로 설치해서 쓴다:
+
+```
+npx skills@latest add LilMGenius/paperthin --agent cursor
+```
+
+이 하네스는 paperthin을 **조합**하는 계층만 직접 만든다:
+
+- **영속 온톨로지 컨텍스트 루프** → `.cursor/skills/context-loop/SKILL.md` (`.cursor/context/ontology.md`가 SSOT)
+- **콤보 Ⅰ (컨텍스트 청소)** → `/context-clean` = `/ssotize` → `/re0` → `/debloat` → `/reorder`
+- **콤보 Ⅱ (다음 수 결정)** → `/next` = `/nba` → `/modelchk`
+
+## 자율 실행
+
+긴 자율 작업은 `.cursor/rules/autonomous.mdc`의 루프를 따른다: 다음 수(`/next`) → 예산 가드 → 구현 → `/sip` 자가검증 → 큰 단계마다 `/context-clean`. 목표 달성 & `/sip` 통과 & 온톨로지 최신일 때 멈춘다.
+
+## 판단 레이어는 자율로 넘기지 않기
+
+주제 선정·방향 결정·가치판단은 규칙화하지도, 자율 루프로 밀지도 않는다. 근거만 제시하고 사람에게 넘긴다. 고위험 로직(인증·결제·보안)은 Plan 역할에서 frontier로 검수 후 진행.
 
 ## 규칙을 늘리는 법
 
