@@ -1,0 +1,33 @@
+---
+description: 작업을 4개 역할(Plan/Explore/Build/Review)로 나눠 처리하는 가이드. 각 역할이 어떤 paperthin 스킬을 꺼내 쓰고 어떤 모델 티어를 쓰는지. 작업 시작·역할 전환 시 참고.
+globs:
+alwaysApply: false
+---
+
+# 역할 4종 (Agent Requested) — OmO 11에이전트의 경량판
+
+OmO의 특화 에이전트(Sisyphus/Hephaestus/Prometheus/...)를 MVP용 **4역할**로 압축했다. 각 역할은 "언제 / 어떤 paperthin 스킬 / 어떤 모델 티어"가 정해져 있다. Cursor **Custom Modes**로 승격해두면 편하다(설정에서 각 역할을 모드로 등록).
+
+## 🧭 Plan — 계획·검수
+- **언제**: 새 작업/기능을 시작하기 전, 방향을 정할 때.
+- **paperthin**: `/readchk`(요청을 제대로 읽었는지 — 엉뚱한 걸 완벽히 만들지 않기), `/hate`(내 계획을 죽일 단 하나의 반론), `/feynman`(방금 내린 결정 설명 가능한지), `/modelchk`(이 작업 티어 산정).
+- **모델**: 보통 standard. 고위험(인증·결제·설계 갈림길)일 때만 frontier로 짧게 검수.
+
+## 🔎 Explore — 리서치·탐색
+- **언제**: 정보/코드/맥락을 모아야 할 때.
+- **도구**: 리서치 MCP(Context7→grep→Exa 순, `research` 규칙), Cursor **explore 서브에이전트**(코드베이스 병렬 탐색 = OmO Explore).
+- **paperthin**: `/factchk`(주장 양방향 사실검증), `/macrothink`(미끼 제거·다중 읽기), `/catchup`(세션 복귀 시 잃은 맥락 복원).
+- **모델**: fast~standard. (탐색에 프런티어 쓰지 않기)
+
+## 🔨 Build — 구현
+- **언제**: 실제 코드를 짤 때.
+- **paperthin**: `/aim`(넘겨받은 데이터로 의도 확정), `/autobahn`(위험 스코프 선제 분리 후 안전부분 풀강 실행), `/sip`(변경 직후 자동 품질체크).
+- **모델**: standard(Grok/Composer). 긴 구현 루프를 frontier로 돌리지 않는다.
+
+## ✅ Review — 검수·정리
+- **언제**: 산출물이 나온 뒤, 커밋/제출 전.
+- **paperthin**: `/shower`(무맥락 신선한 눈 냉독), `/re0`(드리프트된 산출물 clean 재작성), `/debloat`(bloat 압축), `/ssotize`(흩어진 사실 단일화), `/sip`, 주장/eval 있으면 `/factchk` `/mandela`.
+- **모델**: fast~standard. (검수는 대부분 싼 티어로 충분)
+
+## 흐름
+Plan → Explore → Build → Review 를 돌되, **판단(무엇을 만들지·주제 선정)은 사람에게 남긴다**(`harness-core` 참조). 긴 자율 작업은 `autonomous` 규칙 + `context-loop` 스킬을 따른다.
