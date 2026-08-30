@@ -21,7 +21,7 @@ Keep the project's living knowledge/vocabulary/decisions in **one place: `.curso
 3. `/debloat` — compress padding/duplication/enumeration to load-bearing density (meaning preserved).
 4. `/reorder` — realign items under one stated principle (order only; no rewording).
 
-**When**: periodically during long work (e.g., after a big stage), right after context compaction, or when the ontology feels messy.
+**When (concrete triggers)**: ontology exceeds ~150 lines / a milestone (big stage) completes / just before context compaction (`preCompact` signal). Fire on these triggers, not a subjective "feels messy".
 
 ## Combo II — decide next move
 `/nba` → `/modelchk`

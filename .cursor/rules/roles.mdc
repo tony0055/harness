@@ -18,6 +18,7 @@ OmO's specialized agents (Sisyphus/Hephaestus/Prometheus/...) compressed to **4 
 - **Tools**: research MCP (order & output per `research`), Cursor **explore subagent** (parallel codebase search = OmO Explore).
 - **paperthin**: `/factchk` (verify claims both ways), `/macrothink` (strip bait, fan out fresh reads), `/catchup` (rebuild lost context on re-entry).
 - **Model**: fast~standard. (No frontier for exploration.)
+- **Boundary**: surfaces evidence/options only; **does not decide direction/value** (that's Plan/human). `research` = the tool method, Explore = the role that uses it.
 
 ## 🔨 Build — implementation
 - **When**: writing actual code.

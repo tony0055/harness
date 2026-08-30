@@ -20,6 +20,7 @@ Reusable Cursor harness template. Lightweight for Cursor-only, MVP-scale work. S
 | Model / cost choice | `rules/model-routing.mdc` |
 | Long autonomous work | `rules/autonomous.mdc` |
 | Persistent context | `skills/context-loop`, `/context-clean`, `/next` |
+| Auto verification (lint/test) | `.cursor/hooks.json`, `.cursor/hooks/verify.sh` |
 | Research MCP tools | `.cursor/mcp.json` (exa · context7 · grep) |
 
 ## paperthin
@@ -29,6 +30,8 @@ The combos (`/context-clean`, `/next`) call paperthin skills. Install once: `npx
 ## Growing rules
 
 When you give the same instruction twice, run `/Generate Cursor Rules` to extract the pattern into `.cursor/rules/`. Write rules as **"trigger → action → output format"**. Types: always-same = Always (`alwaysApply:true`); file-specific = `globs`; situational = Agent Requested (`description`); judgment = not encoded.
+
+**Anti-bloat trigger**: when rules exceed ~7 files or a single rule passes ~60 lines, tidy with `/debloat` / `/re0` (by this threshold, not a schedule).
 
 ## Constraints
 

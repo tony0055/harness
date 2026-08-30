@@ -26,6 +26,8 @@ Always split work into three layers: **Research → Execute → Decide**.
 │   ├── mcp.json                 # research tools (exa · context7 · grep)
 │   ├── environment.json         # cloud-agent environment
 │   ├── context/ontology.md      # persistent-context SSOT
+│   ├── hooks.json               # verification hook registration (on stop)
+│   ├── hooks/verify.sh          # fail-open auto-detect lint/test script
 │   ├── commands/
 │   │   ├── context-clean.md     # /context-clean  Combo I: clean the ontology
 │   │   └── next.md              # /next           Combo II: next move + model sizing
@@ -84,5 +86,8 @@ See `AGENTS.md` and `.cursor/rules/model-routing.mdc`.
 2. Install paperthin: `npx skills@latest add LilMGenius/paperthin --agent cursor`
 3. (optional) Register the 4 roles as Custom Modes — see `docs/custom-modes.md`.
 
-### 3) Grow the rules
+### 3) Verification hook (optional)
+`.cursor/hooks.json` runs `.cursor/hooks/verify.sh` on task end (`stop`) to **auto-detect and run lint** (fail-open, non-blocking). To enable, keep the workspace **Trusted** and restart Cursor. If no linter is found it passes silently; adapt `verify.sh` to the project.
+
+### 4) Grow the rules
 When you give the same instruction twice, run `/Generate Cursor Rules` to extract the pattern into `.cursor/rules/`. Don't design it all up front — **harden as it repeats.**

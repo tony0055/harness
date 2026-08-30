@@ -24,6 +24,11 @@ repeat:
 stop when: goal met && /sip passes && ontology (.cursor/context/ontology.md) current.
 ```
 
+## Checkpoints (deadline & budget safety)
+- **Stop at each stage/gate boundary** and summarize what was done → the human decides continue/adjust.
+- **Human approval required** before: frontier escalation, irreversible/destructive changes (bulk deletes, schema changes, deploys), budget-heavy stretches.
+- **Runaway guard**: if the same error blocks you 2+ times, stop and report.
+
 ## Boundaries (don't hand judgment to the loop)
 - Topic selection, direction, value judgments: not handled autonomously (`harness-core` Decide layer). Present evidence to the human.
 - High-risk logic (auth/payment/security): don't push autonomously; review via the Plan role on frontier first.
