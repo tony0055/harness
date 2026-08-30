@@ -1,28 +1,27 @@
 ---
-description: 비용 인지형 모델 선택 가이드. Cursor Pro($20 예산) 기준으로 어떤 작업에 어떤 모델/추론강도를 쓸지, 예산이 달릴 때 어떻게 폴백할지. 새 작업 시작·모델 선택·비용 고민 시 참고.
+description: 비용 인지형 모델 선택 가이드. Cursor Pro($20 예산) 기준 기본 티어(fast)와 Usage/요청에 따른 전환, 프런티어 승격 규칙. 새 작업 시작·모델 선택·비용 고민 시 참고.
 globs:
 alwaysApply: false
 ---
 
 # 비용 인지형 모델 라우팅 (Agent Requested)
 
-전제: **Cursor Pro = 월 $20 포함.** 프런티어(Claude/GPT)는 이 예산을 빠르게 태운다.
+전제: **Cursor Pro = 월 $20 포함.** Cursor 네이티브(Grok/Composer)는 토큰을 넉넉히 주지만, 프런티어(Claude/GPT)는 예산을 빠르게 태운다.
 
-> 기본은 Cursor 네이티브(저비용). 프런티어는 정말 필요할 때만 아껴서. 예산 달리면 전부 Cursor 모델로 폴백.
+> 기본은 **fast**(Cursor 네이티브). Usage가 차오르면(70%+) **standard**로 조이고, 프런티어는 고위험에만 승격. **사용자가 요청하면 언제든 바꾼다.**
 
-## 티어 (paperthin `modelchk` = 벤더중립 3단계)
+## 티어
 
-작업 전 두 다이얼을 정한다: **능력 티어** + **추론 강도**(glance → moderate → deep → exhaustive). 강도를 습관적으로 max로 올리지 않는다 — 그게 토큰을 태운다.
-
-| 티어 | 언제 | Cursor 모델 | 과금 |
+| 티어 | 기본 여부 | 모델 | 언제 |
 | --- | --- | --- | --- |
-| **fast** | 사소한 편집·포맷팅·반복·기계적 작업 | Composer / Auto | 포함 |
-| **standard** | 대부분의 구현·스캐폴딩·MVP 첫 버전 | Grok / Composer / Auto | 포함~저비용 |
-| **frontier** | 고위험 로직(인증·결제·보안), 까다로운 디버깅, 핵심 설계 검수 | Claude / GPT | API 메터링(비쌈) |
+| **fast** | ★ **기본값** (Usage < 70%) | Cursor 네이티브: Grok / Composer (`-fast` 변형 OK) | 사소한 작업 **+ 대부분의 구현·스캐폴딩·MVP 첫 버전**. Cursor 토큰이 넉넉하니 여기서 다 처리. |
+| **standard** | Usage ≥ 70%, 또는 요청 시 | Cursor 네이티브: Composer / Auto 우선 (아껴서, `-fast` 지양) | 예산을 조이는 모드. 추론강도 낮추고 낭비 줄이며 **계속 Cursor 모델**로. |
+| **frontier** | 승격으로만 | 비-Cursor: Claude / GPT (**API 메터링**) | 고위험 로직(인증·결제·보안), 까다로운 디버깅, 핵심 설계 검수. |
 
-## 예산 가드 (★ 핵심)
+## 규칙
 
-- 프런티어는 **승격(escalation)으로만**. 기본값 아님. `modelchk`가 꼭 필요하다 할 때만 올린다.
-- 프런티어는 **계획·검수 짧은 구간에만**. 긴 구현 루프는 standard로 내려서 실행(하이브리드).
-- 예산/토큰이 달리면 → **강등**: 전부 Cursor 네이티브(Composer/Auto/Grok). frontier 호출 금지.
-- 의심되면 싸게 시작 → 부족할 때만 한 단계 승격.
+- **기본은 fast.** Cursor 네이티브는 토큰이 넉넉하니 대부분의 작업(구현·스캐폴딩·MVP)을 fast로 처리한다.
+- **Usage 70% 이상이면 standard로 전환** — 더 아껴 쓴다(추론강도 down, `-fast` 지양, 낭비 최소, 계속 Cursor 모델). Usage는 사용자가 알려주거나 Cursor 사용량 표시로 판단.
+- **요청하면 티어를 바꾼다.** 기본 fast를 언제든 올리거나 내릴 수 있다. (모델 선택은 최종적으로 Cursor 모델 피커에서 사람이 지정)
+- **프런티어(비-Cursor)는 fast가 될 수 없다.** 고위험·핵심 검수의 **짧은 구간에서 승격으로만**, 긴 구현 루프엔 쓰지 않는다.
+- **추론 강도**(glance → moderate → deep → exhaustive)는 티어와 독립. 습관적으로 max로 올리지 않는다.

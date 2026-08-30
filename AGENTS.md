@@ -5,7 +5,7 @@
 ## 항상 지키는 원칙
 
 - **레이어로 나눈다**: 수집(Explore) → 구현(Plan·Build·Review) → 판단(사람). 판단(주제·방향·가치)은 규칙화·자율 실행하지 않고 사람에게. (`harness-core`)
-- **비용 우선**: 기본은 Cursor 네이티브(Composer/Auto/Grok). 프런티어(Claude/GPT)는 고위험·핵심 검수에만 승격, 예산 달리면 전부 Cursor 모델로 강등. (`model-routing`)
+- **비용 우선**: 기본은 **fast**(Cursor 네이티브 Grok/Composer, 토큰 넉넉). Usage 70%+면 **standard**로 조이고, 프런티어(Claude/GPT)는 고위험·핵심 검수에만 승격(**never fast**). 요청하면 티어 변경. (`model-routing`)
 - **근거 우선**: 도구로 확인 가능한 사실을 기억에 의존해 단정하지 않고, 출처를 붙인다. (`research`)
 
 ## 포인터 맵

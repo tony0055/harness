@@ -64,10 +64,10 @@ npx skills@latest add LilMGenius/paperthin --agent cursor
 
 ## 모델 선택 (비용 인지형 — Cursor Pro $20)
 
-- **fast**(사소·반복) → Composer / Auto (포함)
-- **standard**(대부분 구현·MVP) → **Grok** (저비용)
-- **frontier**(고위험·정밀 디버깅·핵심 검수) → Claude/GPT **아껴서, 계획·검수만**
-- **예산 가드**: 프런티어는 승격으로만. 예산 달리면 전부 Cursor 모델로 강등.
+- **fast** = 기본값 → Cursor 네이티브(Grok / Composer). 토큰이 넉넉하니 **대부분의 구현·스캐폴딩·MVP까지 여기서**.
+- **standard** = Usage 70%+ 또는 요청 시 → 계속 Cursor 모델이지만 **아껴서**(추론강도 down).
+- **frontier** = 승격으로만 → Claude/GPT, 고위험·정밀 디버깅·핵심 검수만. **절대 fast 아님.**
+- 요청하면 언제든 티어 변경.
 
 자세한 건 `AGENTS.md`, `.cursor/rules/model-routing.mdc` 참고.
 
