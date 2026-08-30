@@ -1,29 +1,29 @@
 ---
-description: MVP를 자율적으로 끝까지 완수하기 위한 실행 루프 규칙. 긴 자율 작업, "끝까지 해줘" 류 요청, 자율 모드에서 참고.
+description: Execution loop for finishing an MVP autonomously. For long autonomous work, "take it all the way" requests, or autonomous mode.
 globs:
 alwaysApply: false
 ---
 
-# 자율 실행 루프 (Agent Requested) — OmO ulw-loop 경량판
+# Autonomous Loop (Agent Requested) — lightweight port of OmO's ulw-loop
 
-MVP는 보통 "리서치 → 구조 → 첫 버전 완성"을 한 번에 밀어붙이는 작업이다. 이 규칙은 중간에 멈추지 않고 완수하기 위한 루프다.
+An MVP is usually "research → structure → first version" pushed in one go. This loop finishes it without stopping midway.
 
-## 원칙
-- **자가 검증 전까지 멈추지 않는다.** 계획 → 구현 → `/sip`(자가 품질체크) → 미비점 수정까지 한 사이클로.
-- **코드가 아니라 학습을 누적한다**(paperthin `re0-loop`). 잘못된 빌드는 버리고 온톨로지에 남은 교훈만 이어간다.
-- **컨텍스트는 `context-loop` 스킬로 유지**한다(자율 상태에서도 온톨로지가 썩지 않게).
+## Principles
+- **Don't stop before self-verification.** One cycle = plan → build → `/sip` (self quality-check) → fix gaps.
+- **Accumulate learning, not code** (paperthin `re0-loop`). Let a wrong build die; carry only the lessons kept in the ontology.
+- **Keep context alive with the `context-loop` skill** so the ontology doesn't rot even in autonomous runs.
 
-## 루프
+## Loop
 ```
-반복:
-  1) 다음 수 정하기 → /next (콤보 Ⅱ: /nba → /modelchk)
-  2) 모델 선택 → model-routing 예산 가드 적용 (프런티어는 승격으로만, 예산 달리면 Cursor 모델로 강등)
-  3) 구현(Build 역할) → /sip 자가검증
-  4) 큰 단계 종료 시 → /context-clean (콤보 Ⅰ: 온톨로지 청소)
-  5) 세션 복귀/맥락 상실 시 → /catchup 먼저
-멈춤 조건: 목표 달성 && /sip 통과 && 온톨로지(.cursor/context/ontology.md) 최신.
+repeat:
+  1) Decide next move → /next (Combo II: /nba → /modelchk)
+  2) Pick model → apply model-routing budget guard (frontier escalation-only; degrade to Cursor-native when low)
+  3) Implement (Build role) → /sip self-check
+  4) After each big stage → /context-clean (Combo I: clean the ontology)
+  5) On re-entry / lost context → /catchup first
+stop when: goal met && /sip passes && ontology (.cursor/context/ontology.md) current.
 ```
 
-## 경계 (사람 판단은 넘기지 않기)
-- 주제 선정, 방향 결정, 가치판단은 자율로 처리하지 않는다(`harness-core` 판단 레이어). 근거만 제시하고 사람에게.
-- 고위험 로직(인증·결제·보안)은 자율로 밀지 말고 Plan 역할로 frontier 검수 후 진행.
+## Boundaries (don't hand judgment to the loop)
+- Topic selection, direction, value judgments: not handled autonomously (`harness-core` Decide layer). Present evidence to the human.
+- High-risk logic (auth/payment/security): don't push autonomously; review via the Plan role on frontier first.

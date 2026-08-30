@@ -1,12 +1,12 @@
-# /next — 다음 최선의 행동 + 모델 산정 (paperthin Combo Ⅱ)
+# /next — next best action + model sizing (paperthin Combo II)
 
-라이브 상태를 읽고 다음 한 수를 정한 뒤, 가장 싼 충분 모델을 고른다.
+Read live state, decide the next move, then pick the cheapest sufficient model.
 
-1. `/nba` — 현재 사이클 상태를 읽고 "다음 최선의 행동 1개"만 반환(메뉴/체크리스트 X).
-2. `/modelchk` — 그 행동에 필요한 능력 티어(fast/standard/frontier)와 추론강도를 산정.
+1. `/nba` — read the current cycle state and return the single next best action (no menu/checklist).
+2. `/modelchk` — size the capability tier (fast/standard/frontier) and reasoning effort that action needs.
 
-그다음 `model-routing` 규칙의 **예산 가드**를 적용한다:
-- 프런티어(Claude/GPT)는 `modelchk`가 꼭 필요하다고 할 때만 승격.
-- 예산/토큰이 달리면 전부 Cursor 네이티브(Composer/Auto/Grok)로 강등.
+Then apply the **budget guard** from the `model-routing` rule:
+- Escalate to frontier (Claude/GPT) only when `modelchk` says it's truly needed.
+- When budget/tokens run low, degrade everything to Cursor-native (Composer/Auto/Grok).
 
-전제: paperthin 설치 필요(`npx skills@latest add LilMGenius/paperthin --agent cursor`).
+Prereq: paperthin installed (`npx skills@latest add LilMGenius/paperthin --agent cursor`).

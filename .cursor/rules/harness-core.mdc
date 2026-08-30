@@ -1,25 +1,29 @@
 ---
-description: 이 프로젝트 하네스의 핵심 사고 프레임. 모든 작업에 항상 적용.
+description: Core thinking frame for this harness. Applies to every task.
 globs:
 alwaysApply: true
 ---
 
-# 하네스 핵심 원칙 (Always)
+# Harness Core (Always)
 
-모든 작업의 사고 프레임. 항상 적용된다.
+The thinking frame for every task.
 
-## 작업을 레이어로 나눈다
+## Split work into layers
 
-어떤 요청이든 먼저 레이어를 분리한다. 레이어는 역할(`roles`)과 이렇게 대응한다:
+Separate each request into layers, mapped to roles (`roles`):
 
-- **수집(Research)** = Explore 역할 → 정보를 모은다 (MCP 도구에 위임).
-- **구현(Execute)** = Plan · Build · Review 역할 → 계획·코드·검수.
-- **판단(Decide)** = 사람 → 방향·주제·우선순위. **규칙화하지도, 자율로 실행하지도 않는다.**
+- **Research** = Explore role — gather information (delegate to MCP tools).
+- **Execute** = Plan · Build · Review roles — plan, code, review.
+- **Decide** = human — direction, topic, priority. Not rule-encoded, not run autonomously.
 
-## 무엇을 규칙화하나
+## What to rule-encode
 
-- 매번 똑같음 → 규칙으로 고정.
-- 상황 따라 필요 → Agent Requested 규칙.
-- 매번 다름 / 가치판단 → **규칙화하지 않고 사람에게.**
+- Always the same → fixed rule.
+- Situational → Agent Requested rule.
+- Varies each time / judgment → not encoded; left to the human.
 
-무엇을 규칙화하면 **안 되는지** 아는 게 하네스 설계의 핵심이다. (규칙 작성·확장법은 `AGENTS.md`)
+Knowing what **not** to encode is the core skill of harness design. (Rule authoring: `AGENTS.md`)
+
+## Output language
+
+Reasoning and rules are in English; **reply to the user in Korean.**

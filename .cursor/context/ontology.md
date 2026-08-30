@@ -1,22 +1,22 @@
-# 프로젝트 온톨로지 (영속 컨텍스트 · 단일 진실 원천)
+# Project Ontology (persistent context · single source of truth)
 
-> 이 파일은 프로젝트의 살아있는 지식/어휘/결정을 담는 SSOT다. 세션·컨텍스트 압축·자율 실행을 가로질러 살아남는다.
-> 대화 기억이 아니라 이 파일이 진실이다. `context-loop` 스킬이 이 파일을 주기적으로 청소(`/context-clean`)한다.
-> 새 프로젝트에서는 아래 섹션을 실제 내용으로 채운다.
+> This file holds the project's living knowledge/vocabulary/decisions as the SSOT. It survives across sessions, context compaction, and autonomous runs.
+> The file is the truth, not conversation memory. The `context-loop` skill cleans it periodically (`/context-clean`).
+> In a new project, fill the sections below with real content.
 
-## 목표 (What / Why)
-- (이 프로젝트가 뭘 하려는지 1~3줄)
+## Goal (What / Why)
+- (what this project is trying to do, 1–3 lines)
 
-## 핵심 어휘 (Ontology)
-- (프로젝트 고유 용어 → 정의. 자율 실행 중 새로 만든 용어도 여기 등록)
+## Core vocabulary (Ontology)
+- (project-specific term → definition; register terms coined during autonomous runs here too)
 
-## 결정 로그 (Decisions)
-- (내린 결정 + 이유. 번복 시 갱신)
+## Decision log (Decisions)
+- (decisions made + why; update on reversal)
 
-## 현재 상태 (State)
-- 완료:
-- 진행 중:
-- 다음 게이트:
+## Current state (State)
+- Done:
+- In progress:
+- Next gate:
 
-## 미해결 / 사람 판단 필요 (Open)
-- (아직 확인 못 했거나 사람이 정해야 할 것)
+## Open / needs human judgment (Open)
+- (not yet verified, or something the human must decide)
