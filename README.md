@@ -80,7 +80,7 @@ npx skills@latest add LilMGenius/paperthin --agent cursor
 ### 2) 로컬 커서 세팅
 1. 프로젝트를 Cursor로 열고 재시작 → **Settings → Cursor Settings → Tools & MCP** 에서 `exa`/`context7`/`grep` 초록불 확인.
 2. paperthin 설치: `npx skills@latest add LilMGenius/paperthin --agent cursor`
-3. (선택) `roles.mdc`의 4역할을 Custom Modes로 등록.
+3. (선택) `roles.mdc`의 4역할을 Custom Modes로 등록 — 설정법은 `docs/custom-modes.md`.
 
 ### 3) 규칙 늘려가기
 같은 지시를 두 번 이상 하게 되면 `/Generate Cursor Rules` 로 패턴을 규칙으로 뽑아 `.cursor/rules/` 에 추가. 완벽히 미리 설계 말고 **반복될 때마다 굳힌다.**
