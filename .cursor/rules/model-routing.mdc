@@ -6,37 +6,23 @@ alwaysApply: false
 
 # 비용 인지형 모델 라우팅 (Agent Requested)
 
-전제: **Cursor Pro = 월 $20 포함 사용량.** GPT/Claude 같은 프런티어 모델은 이 예산을 빠르게 소모한다. 그래서 원칙은:
+전제: **Cursor Pro = 월 $20 포함.** 프런티어(Claude/GPT)는 이 예산을 빠르게 태운다.
 
-> **기본은 Cursor 네이티브(저비용) 모델로. 프런티어(Claude/GPT)는 "정말 필요할 때만" 아껴서. 예산이 달리면 전부 Cursor 모델로 폴백.**
+> 기본은 Cursor 네이티브(저비용). 프런티어는 정말 필요할 때만 아껴서. 예산 달리면 전부 Cursor 모델로 폴백.
 
-## 1. 티어 (paperthin `modelchk` 개념 = 벤더중립 3단계)
+## 티어 (paperthin `modelchk` = 벤더중립 3단계)
 
-작업을 시작하기 전에 두 다이얼을 정한다: **능력 티어** + **추론 강도**.
+작업 전 두 다이얼을 정한다: **능력 티어** + **추론 강도**(glance → moderate → deep → exhaustive). 강도를 습관적으로 max로 올리지 않는다 — 그게 토큰을 태운다.
 
-| 티어 | 언제 | Cursor에서 쓸 모델 | 과금 |
+| 티어 | 언제 | Cursor 모델 | 과금 |
 | --- | --- | --- | --- |
-| **fast** | 사소한 편집, 포맷팅, 반복 패턴, 기계적 작업 | Composer / Auto | 포함(사실상 무료) |
-| **standard** | 대부분의 구현·스캐폴딩·MVP 첫 버전 | Grok(=cursor-grok) / Composer / Auto | 포함~저비용 |
-| **frontier** | 고위험 로직(인증·결제·보안), 까다로운 알고리즘 디버깅, 핵심 설계 검수 | Claude / GPT | **API 메터링(비쌈)** |
+| **fast** | 사소한 편집·포맷팅·반복·기계적 작업 | Composer / Auto | 포함 |
+| **standard** | 대부분의 구현·스캐폴딩·MVP 첫 버전 | Grok / Composer / Auto | 포함~저비용 |
+| **frontier** | 고위험 로직(인증·결제·보안), 까다로운 디버깅, 핵심 설계 검수 | Claude / GPT | API 메터링(비쌈) |
 
-추론 강도(glance → standard → exhaustive)는 티어와 독립. 쉬운 건 glance, 위험한 건 exhaustive. **강도를 습관적으로 max로 올리지 않는다 — 그게 토큰을 태운다.**
+## 예산 가드 (★ 핵심)
 
-## 2. 기본 라우팅 (비용 최적)
-
-- **신규 MVP 스캐폴딩 / 일반 구현** → **standard: Grok** (신규 코드 자율 구축에 강함, 저비용)
-- **작은 수정·리팩토링·반복** → **fast: Composer / Auto**
-- **계획·검수(고위험)** → **frontier: Claude/GPT로 "계획·검수"만**, 실제 구현은 다시 standard(Grok/Composer)로 내려서 실행 (하이브리드)
-- **정밀 디버깅(예: 영상처리 알고리즘)** → 필요 시에만 **frontier**
-
-## 3. 예산 가드 (★ 이 하네스의 핵심 제약)
-
-- **프런티어는 "승격(escalation)"으로만 쓴다.** 기본값이 아니다. `modelchk`가 "이 작업은 frontier가 꼭 필요"라고 판단할 때만 올린다.
-- **프런티어는 넓게 쓰지 말고 "계획·검수"의 짧은 구간에만.** 긴 구현 루프를 프런티어로 돌리지 않는다.
-- **예산/토큰이 달리기 시작하면 → 강등(degrade):** 모든 작업을 Cursor 네이티브(Composer / Auto / Grok)로 내린다. frontier 호출 금지.
-- 확신이 안 서면 **더 싼 티어로 시작**하고, 결과가 부족할 때만 한 단계 올린다. (싸게 시작 → 필요 시 승격)
-
-## 4. 한 줄 요약
-
-fast=Composer/Auto, standard=Grok, frontier=Claude/GPT(아껴서 계획·검수만).
-**의심되면 싸게 시작. 예산 달리면 전부 Cursor 모델.**
+- 프런티어는 **승격(escalation)으로만**. 기본값 아님. `modelchk`가 꼭 필요하다 할 때만 올린다.
+- 프런티어는 **계획·검수 짧은 구간에만**. 긴 구현 루프는 standard로 내려서 실행(하이브리드).
+- 예산/토큰이 달리면 → **강등**: 전부 Cursor 네이티브(Composer/Auto/Grok). frontier 호출 금지.
+- 의심되면 싸게 시작 → 부족할 때만 한 단계 승격.

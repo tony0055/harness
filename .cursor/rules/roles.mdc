@@ -15,7 +15,7 @@ OmO의 특화 에이전트(Sisyphus/Hephaestus/Prometheus/...)를 MVP용 **4역�
 
 ## 🔎 Explore — 리서치·탐색
 - **언제**: 정보/코드/맥락을 모아야 할 때.
-- **도구**: 리서치 MCP(Context7→grep→Exa 순, `research` 규칙), Cursor **explore 서브에이전트**(코드베이스 병렬 탐색 = OmO Explore).
+- **도구**: 리서치 MCP(순서·출력은 `research` 규칙), Cursor **explore 서브에이전트**(코드베이스 병렬 탐색 = OmO Explore).
 - **paperthin**: `/factchk`(주장 양방향 사실검증), `/macrothink`(미끼 제거·다중 읽기), `/catchup`(세션 복귀 시 잃은 맥락 복원).
 - **모델**: fast~standard. (탐색에 프런티어 쓰지 않기)
 
@@ -30,4 +30,4 @@ OmO의 특화 에이전트(Sisyphus/Hephaestus/Prometheus/...)를 MVP용 **4역�
 - **모델**: fast~standard. (검수는 대부분 싼 티어로 충분)
 
 ## 흐름
-Plan → Explore → Build → Review 를 돌되, **판단(무엇을 만들지·주제 선정)은 사람에게 남긴다**(`harness-core` 참조). 긴 자율 작업은 `autonomous` 규칙 + `context-loop` 스킬을 따른다.
+Plan → Explore → Build → Review 를 돈다(판단은 사람 몫 — `harness-core`). 긴 자율 작업은 `autonomous` + `context-loop`를 따른다.
