@@ -18,6 +18,7 @@
 | 모델·비용 선택 | `rules/model-routing.mdc` |
 | 긴 자율 작업 | `rules/autonomous.mdc` |
 | 영속 컨텍스트 유지 | `skills/context-loop`, `/context-clean`, `/next` |
+| 자동 검증(lint/test) | `.cursor/hooks.json`, `.cursor/hooks/verify.sh` |
 | 리서치 MCP 도구 | `.cursor/mcp.json` (exa · context7 · grep) |
 
 ## paperthin
@@ -27,6 +28,8 @@
 ## 규칙 늘리는 법
 
 같은 지시를 두 번 이상 하게 되면 `/Generate Cursor Rules`로 패턴을 `.mdc`로 뽑아 `.cursor/rules/`에 추가한다. 규칙은 **"트리거 → 동작 → 출력 형식"** 으로 쓴다. 종류: 매번 똑같음=Always(`alwaysApply:true`), 특정 파일=`globs`, 상황 따라=Agent Requested(`description`), 가치판단=규칙화 안 함.
+
+**bloat 방지 트리거**: rules가 ~7개 초과하거나 한 rule이 ~60줄을 넘으면 `/debloat`·`/re0`로 다듬는다(시간이 아니라 이 임계값으로).
 
 ## 하지 말 것
 

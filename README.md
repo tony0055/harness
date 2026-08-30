@@ -24,6 +24,8 @@
 │   ├── mcp.json                 # 리서치 도구 3종 (Exa · Context7 · grep)
 │   ├── environment.json         # 클라우드 에이전트 환경
 │   ├── context/ontology.md      # 영속 컨텍스트 SSOT (프로젝트 지식/결정)
+│   ├── hooks.json               # 자동 검증 훅 등록 (stop 시점)
+│   ├── hooks/verify.sh          # fail-open lint/test 자동 감지 스크립트
 │   ├── commands/
 │   │   ├── context-clean.md     # /context-clean  콤보Ⅰ: 온톨로지 청소
 │   │   └── next.md              # /next           콤보Ⅱ: 다음 수 + 모델 산정
@@ -82,5 +84,8 @@ npx skills@latest add LilMGenius/paperthin --agent cursor
 2. paperthin 설치: `npx skills@latest add LilMGenius/paperthin --agent cursor`
 3. (선택) `roles.mdc`의 4역할을 Custom Modes로 등록 — 설정법은 `docs/custom-modes.md`.
 
-### 3) 규칙 늘려가기
+### 3) 자동 검증 훅 (선택)
+`.cursor/hooks.json`이 작업 종료(`stop`) 시 `.cursor/hooks/verify.sh`를 실행해 **lint를 자동 감지·실행**(fail-open, 차단 안 함). 켜려면 **워크스페이스를 Trusted로** 두고 Cursor 재시작. 린터가 없으면 조용히 통과하고, 프로젝트에 맞게 `verify.sh`를 수정하면 됨.
+
+### 4) 규칙 늘려가기
 같은 지시를 두 번 이상 하게 되면 `/Generate Cursor Rules` 로 패턴을 규칙으로 뽑아 `.cursor/rules/` 에 추가. 완벽히 미리 설계 말고 **반복될 때마다 굳힌다.**
